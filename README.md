@@ -2,7 +2,7 @@
 
 Hello, RentZend team.
 
-I am glad to have a test.
+I am glad to know you.
 
 -Front-End
 
