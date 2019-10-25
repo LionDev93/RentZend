@@ -5,7 +5,7 @@ const RegisterSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Required"),
-  phoneNumber: Yup.string().required("Required"),
+  phoneNumber: Yup.string().min(13, "Incorrect").required("Required"),
   address: Yup.string().required("Required"),
   zipCode: Yup.number().required("Required")
 });

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Formik, Form, Field } from "formik";
 import {
   TextField,
   makeStyles,
   Grid,
   Paper,
-  FormGroup
+  FormGroup,
+  Button
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import MaskedInput from "react-text-mask";
+import axios from "axios";
 
 import RegisterSchema from "../constants/registerSchema";
 
@@ -64,6 +66,43 @@ TextMaskCustom.propTypes = {
 function Register() {
   const classes = useStyles();
 
+  const handleSubmit = useCallback(async values => {
+    const { name, email, phoneNumber, address, zipCode } = values;
+
+    try {
+      const requestBody = {
+        query: `
+          mutation {
+            createUser(userInput: {
+              name: "${name}"
+              email: "${email}"
+              phoneNumber: "${phoneNumber}"
+              address: "${address}"
+              zipCode: "${zipCode}"
+            }) {
+              _id
+              token
+              email
+            }
+          }
+        `
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/graphql",
+        requestBody
+      );
+
+      if (data.errors) {
+        alert("Failed");
+      } else {
+        alert("success");
+      }
+    } catch (err) {
+      alert("exception err");
+    }
+  });
+
   return (
     <Paper className={classes.container}>
       <h1 className={classes.title}>Register</h1>
@@ -77,12 +116,12 @@ function Register() {
         }}
         validationSchema={RegisterSchema}
         onSubmit={values => {
-          // same shape as initial values
-          console.log(values);
+          console.log("a", values);
+          handleSubmit(values);
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
-          <form className={classes.form}>
+          <Form>
             <FormGroup>
               <TextField
                 label="name"
@@ -147,7 +186,19 @@ function Register() {
                 margin="normal"
               />
             </FormGroup>
-          </form>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                paddingTop: 10
+              }}
+            >
+              <Button variant="contained" color="primary" type="submit">
+                Register
+              </Button>
+            </div>
+          </Form>
         )}
       </Formik>
     </Paper>

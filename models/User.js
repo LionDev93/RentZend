@@ -3,67 +3,25 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const UserSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true
   },
-  password: {
+  phoneNumber: {
     type: String,
     required: true
   },
-  fullname: {
-    type: String,
-    required: true
-  },
-  phone: {
-    type: String,
-    default: ""
-  },
-  application: {
-    type: String,
-    default: ""
-  },
-  registrationDate: {
-    type: String,
-    default: ""
-  },
-  lastLogin: {
-    type: Date,
-    default: Date.now
-  },
-
-  avatar: {
-    type: String,
-    default: ""
-  },
-
   address: {
     type: String,
-    default: ""
+    required: true
   },
-  permissions: {
+  zipCode: {
     type: Number,
-    default: 1
-  },
-  appVersion: {
-    type: String,
-    default: ""
-  },
-  lastLocation: {
-    type: String,
-    default: ""
-  },
-  lastActive: {
-    type: String,
-    default: ""
-  },
-  date: {
-    type: String,
-    default: Date.now
-  },
-  role: {
-    type: String,
-    default: "user", //user, restaurant, admin
+    required: true
   }
 });
 

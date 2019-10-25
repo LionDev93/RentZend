@@ -2,27 +2,24 @@ const express = require("express");
 var mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const users = require("./routes/users");
-const restaurant = require("./routes/restaurant");
-const customer = require("./routes/restaurant");
-const admin = require("./routes/admin")
 var cors = require("cors");
 const path = require("path");
+const expressGraphQL = require("express-graphql");
 
+const graphQLSchema = require("./graphql/schema");
+const graphQLResolvers = require("./graphql/resolver");
+console.log("123", graphQLSchema, graphQLResolvers)
 const app = express();
 
-app.use(cors())
-
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
-
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, "client/build")))
-app.use(express.static(path.join(__dirname, "static")))
+app.use(express.static(path.join(__dirname, "client/build")));
 
 const db = require("./config/key").mongoURI;
 
@@ -31,15 +28,17 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
-app.use(passport.initialize());
 // Passport config
-require("./config/passport")(passport);
 // Routes
-app.use("/api/users", users);
-app.use("/api/restaurant", restaurant)
-app.use("api/customer", customer);
-app.use("/api/admin", admin)
+app.use(
+  "/graphql",
+  expressGraphQL({
+    schema: graphQLSchema,
+    rootValue: graphQLResolvers,
+    graphiql: true
+  })
+);
 // app.use("/", )
-const port = process.env.PORT || 5003;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`server up and running on port ${port} !`));
