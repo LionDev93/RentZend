@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import {
   TextField,
   makeStyles,
-  Grid,
   Paper,
   FormGroup,
   Button
@@ -116,7 +115,6 @@ function Register() {
         }}
         validationSchema={RegisterSchema}
         onSubmit={values => {
-          console.log("a", values);
           handleSubmit(values);
         }}
       >

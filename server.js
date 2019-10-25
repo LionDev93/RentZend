@@ -8,7 +8,6 @@ const expressGraphQL = require("express-graphql");
 
 const graphQLSchema = require("./graphql/schema");
 const graphQLResolvers = require("./graphql/resolver");
-console.log("123", graphQLSchema, graphQLResolvers)
 const app = express();
 
 app.use(cors());
