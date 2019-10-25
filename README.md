@@ -31,7 +31,7 @@ If we use graphql-upload npm, there will be no problem.
 
 I have been worked in an international senior developer team for long time with react.js, so well skilled with react.js and javascript.
 
-(next.js, materialUI, grapql/apollo, firebase...)
+(next.js, materialUI, grapql/apollo, firebase, recompose, elasticsearch...)
 
 If i am hired, I can keep high quality of development.
 
