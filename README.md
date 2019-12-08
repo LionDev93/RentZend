@@ -33,9 +33,6 @@ I have been worked in an international senior developer team for long time with 
 
 (next.js, materialUI, grapql/apollo, firebase, recompose, elasticsearch...)
 
-If i am hired, I can keep high quality of development.
-
-Hope for good news.
 
 *****
 
